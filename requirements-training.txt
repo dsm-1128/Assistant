@@ -1,0 +1,9 @@
+# 仅用于可选的本地 Qwen2.5 + LoRA/QLoRA 训练，不是生产运行依赖
+ms-swift>=3,<4
+transformers>=4.46,<5
+peft>=0.13,<1
+accelerate>=1.0,<2
+torch>=2.4,<3
+bitsandbytes>=0.44,<1
+PyYAML>=6,<7
+

@@ -1,0 +1,3 @@
+# 可选的旧版 Streamlit 界面；生产 Docker 不安装此文件
+-r requirements.txt
+streamlit>=1.40,<2
