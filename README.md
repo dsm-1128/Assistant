@@ -67,16 +67,6 @@ EMBEDDING_DIMENSION=1024
 EMBEDDING_BATCH_SIZE=20
 ```
 
-`.env.docker` 和其他本地 `.env*` 文件已被 Git 忽略。不要把真实 API Key 写入源码、README 或示例配置；公开仓库只保留 `.env.example` 与 `.env.docker.example`。
-
-如果 Chat 和 Embedding 使用同一个服务商和 Key，`EMBEDDING_BASE_URL`、`EMBEDDING_API_KEY` 可以留空；程序会分别回退到 `LLM_BASE_URL`、`LLM_API_KEY`。如果使用不同服务商，请单独填写。
-
-`LLM_BASE_URL` 必须是服务商的 OpenAI-compatible API 根地址，通常包含 `/v1`，不要填写到 `/chat/completions`。使用 `qwen3-vl-embedding` 或 `qwen2.5-vl-embedding` 时，`EMBEDDING_BASE_URL` 应填写 DashScope 原生 API 根地址 `https://dashscope.aliyuncs.com/api/v1`；其他 Embedding 模型仍按其 OpenAI-compatible API 根地址配置。
-
-当前默认使用 `qwen3-vl-embedding`，客户端会显式请求 1024 维并将单批文本限制为 20 条。也可将 `EMBEDDING_MODEL` 改为 `qwen2.5-vl-embedding`，但该模型每次请求只能处理一段文本，因此大量资料入库会更慢。
-
-两个模型不会自动互相回退。即使维度同为 1024，不同模型的向量空间也不能混用；切换模型时必须使用新的 `CHROMA_COLLECTION` 并重新入库。后续切换本地 `bge-m3` 时同样需要新建 Collection，客户端会继续使用 OpenAI-compatible `/embeddings` 协议。
-
 4. 构建并启动：
 
 ```powershell
