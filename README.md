@@ -98,26 +98,6 @@ docker compose down
 
 Compose 只挂载 `./data/chroma:/app/data/chroma`，不会挂载或下载 `models/`，也没有 GPU 配置。
 
-## 从已有本地项目迁移
-
-本项目可以基于已有版本增量迁移。大体积本地资产保留在原项目目录，新在线版只需要交付运行所需源码：
-
-| 原有内容 | 迁移结果 | 新生产运行时用途 |
-| --- | --- | --- |
-| 原项目 `models/` 下的 Qwen、BGE-M3 和分类模型 | 留在原目录，不重复复制 | 新生产运行时不加载 |
-| 原项目 `data/chroma/` | 留在原目录，不覆盖 | 新目录创建在线 Embedding Collection |
-| `data/training/`、`config/qwen_lora.yaml` | 随源码交付 | 可选 LoRA/QLoRA 实验 |
-| `scripts/prepare_training.py` | 随源码交付 | 训练数据校验与规范化 |
-| 原项目 `.venv/`、`.idea/`、`.env` | 留在原目录，不覆盖 | 新目录按本文步骤重新配置 |
-
-旧 `.env` 中的 `BASE_MODEL_ID`、`LORA_ADAPTER_PATH`、`EMBEDDING_MODEL_ID` 等字段不会被新的在线运行时读取。在新目录本地启动 Backend 或 Legacy Streamlit 前，请复制 `.env.example` 为 `.env`，并特别设置：
-
-```dotenv
-CHROMA_COLLECTION=travel_knowledge_online
-```
-
-这样会在新目录 `data/chroma` 内创建在线向量 Collection，原项目的 BGE-M3 向量保持不变。Docker 使用单独的 `.env.docker`，不会覆盖本地 `.env`。
-
 ## 本地开发启动
 
 建议 Python 3.11、Node.js 20 或更高版本。
