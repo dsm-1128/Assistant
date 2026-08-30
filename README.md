@@ -119,19 +119,6 @@ npm run dev
 
 打开 `http://localhost:5173`。Vite 会把 `/api` 代理到 `http://127.0.0.1:8000`，Frontend 没有硬编码生产 Backend 地址。
 
-## Legacy Streamlit 入口（可选）
-
-原项目的 `app.py` 没有被删除，已适配 `OnlineChatModel`、`OnlineEmbeddingClient` 和兼容版 `TravelPlanner`。它保留原有三个 Tab 的使用方式，但现在同样调用在线 Chat/Embedding API，不再加载本地 Qwen 或 BGE-M3。
-
-如需继续使用 Streamlit 界面：
-
-```powershell
-python -m pip install -r requirements-legacy.txt
-streamlit run app.py
-```
-
-生产 Docker 不安装 Streamlit，也不启动 `app.py`；Docker 默认入口仍为 Vue 3 + FastAPI。
-
 ## 使用知识库
 
 在“知识库”页面填写目的地并上传资料，或运行：
